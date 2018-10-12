@@ -5,7 +5,7 @@
 ## USAGE
 
 ```
-const qnFileSync = require('@tomeric/qn-file-sync')
+const qnFileSync = require('@tomieric/qn-file-sync')
 
 /**
 * qnFileSync(options)
