@@ -1,6 +1,8 @@
 const expect = require('expect.js')
 const qnFileSync = require('../index')
-const qnConf = require('../qiniu').default
+const qnConf = require('../qiniu')
+
+console.log(qnConf)
 
 describe('Unit Testing', () => {
   it('Upload', function() {
