@@ -2,6 +2,30 @@
 
 ## USAGE
 
+### INSTALL
+
+```
+npm i -D @tomieric/qn-file-sync
+```
+
+In your package file, add scripts like this:
+
+```
+{
+  "scripts": {
+    "qn": "qn-file-sync -c qiniu.js -d ./dist"
+  }
+}
+```
+
+Open the commandLine,type and execute it.
+
+```
+$ npm run qn
+```
+
+### npx
+
 ```
 $ npx @tomieric/qn-file-sync -c qiniu.js -d ./dist
 
