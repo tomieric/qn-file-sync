@@ -36,7 +36,7 @@ if(argv.help) {
     Description
       sync folder to Qiniu.
     Usage
-      $ npx qn-file-sync -c <config> -d <root>
+      $ npx @tomieric/qn-file-sync -c <config> -d <root>
     Options
       --config, -c Qiniu secretKey config.
       --root, -d   Sync file in the folder
@@ -75,7 +75,7 @@ if (
 consola.start('Upload Start')
 qnFileSync(Object.assign({
   // default: project root
-  root: qnConf.root || argv.root || join(__dirname, '../')
+  root: qnConf.root || argv.root || resolve(argv._[0] || '.')
 }, qnConf), result => {
   if (result && result.key) consola.success('Upload Completed!')
   else consola.error(new Error(result))

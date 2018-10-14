@@ -1,6 +1,6 @@
 {
   "name": "@tomieric/qn-file-sync",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "File sync to Qiniu",
   "main": "index.js",
   "bin": {
