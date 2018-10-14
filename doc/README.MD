@@ -1,4 +1,16 @@
-# USAGE
+# Guide
+
+## USAGE
+
+```
+$ npx @tomieric/qn-file-sync -c qiniu.js -d ./dist
+
+# or
+# default config file is `package.json`
+$ npx @tomieric/qn-file-sync -d ./dist 
+```
+
+## API
 
 ```
 const qnFileSync = require('@tomieric/qn-file-sync')

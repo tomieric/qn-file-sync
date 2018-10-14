@@ -1,0 +1,82 @@
+#!/usr/bin/env node
+
+const { resolve } = require('path')
+
+const consola = require('consola')
+const minimist = require('minimist')
+const { version } = require('../package')
+const qnFileSync = require('../index')
+
+// 全局错误处理
+process.on('unhandleRejection', err => consola.error(err))
+
+let argv = minimist(process.argv.slice(2), {
+  alias: {
+    c: 'config',
+    d: 'root',
+    V: 'version',
+    h: 'help'
+  },
+  string: ['c', 'd'],
+  default: {
+    c: 'package.json'
+  }
+})
+
+// Print version
+// # -V or --version
+if (argv.version) {
+  process.stderr.write(version + '\n')
+  process.exit(0)
+}
+
+// Print manual
+if(argv.help) {
+  process.stderr.write(`
+    Description
+      sync folder to Qiniu.
+    Usage
+      $ npx qn-file-sync -c <config> -d <root>
+    Options
+      --config, -c Qiniu secretKey config.
+      --root, -d   Sync file in the folder
+      --help, -h   Display this message
+      --version
+  `)
+  process.exit(0)
+}
+
+// Read config file
+// defualt: `package.json`
+// if command has `--config` or `-c`, Read file in your set
+const qnConf = require(resolve(argv._[0] || '.', argv.config))
+
+// Config variables is undefined
+// exit 
+if (
+  !qnConf.accessKey ||
+  !qnConf.secretKey ||
+  !qnConf.bucket ||
+  !qnConf.origin ||
+  !qnConf.uploadURL
+) {
+  consola.warn('Please check your config file.')
+  
+  consola.info(`
+    accessKey: ${qnConf.accessKey}
+    secretKey: ${qnConf.secretKey}
+    bucket: ${qnConf.bucket}
+    origin: ${qnConf.origin}
+    uploadURL: ${qnConf.uploadURL}
+  `)
+  process.exit(0)
+}
+
+consola.start('Upload Start')
+qnFileSync(Object.assign({
+  // default: project root
+  root: qnConf.root || argv.root || join(__dirname, '../')
+}, qnConf), result => {
+  if (result && result.key) consola.success('Upload Completed!')
+  else consola.error(new Error(result))
+})

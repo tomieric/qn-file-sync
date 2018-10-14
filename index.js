@@ -35,7 +35,7 @@ module.exports = function(config, hook = () => {}) {
           }
           hook(result)
           console.log(
-            chalk.green('√ File: '), 
+            chalk.green(' √ File: '), 
             chalk.green(result.key), 
             chalk.yellow(result.url)
           )
